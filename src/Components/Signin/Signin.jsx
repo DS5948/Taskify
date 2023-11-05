@@ -1,39 +1,122 @@
-import React from 'react'
-import './Signin.css'
-import { Link } from 'react-router-dom';
-
+import React, {useEffect, useState} from "react";
+import "./Signin.css";
+import { Link, useNavigate } from "react-router-dom";
+import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
+import {signInWithPopup} from "firebase/auth";
+import {AiOutlineGithub} from 'react-icons/ai'
 
 const Signin = () => {
+  const [googleEmail,setGoogleEmail] = useState('')
+  const [gitHubEmail, setGitHubEmail] = useState('')
+  const navigate = useNavigate();
+
+  const handleGoogleSignIn = () => {
+    signInWithPopup(auth, googleAuthProvider)
+      .then((data) => {
+        setGoogleEmail(data.user.email);
+        localStorage.setItem("googleEmail", data.user.email);
+
+        navigate("/home");
+      })
+
+      .catch((error) => {
+        console.error("Error signing in with Google:", error);
+      });
+  };
+  const handleGithubSignIn = () => {
+    signInWithPopup(auth, githubAuthProvider)
+      .then((data) => {
+        setGitHubEmail(data.user.email);
+        localStorage.setItem("gitHubEmail", data.user.email);
+
+        navigate("/home");
+      })
+
+      .catch((error) => {
+        console.error("Error signing in with Github:", error);
+      });
+  };
+
+  useEffect(()=>{
+    setGoogleEmail(localStorage.getItem('googleEmail'))
+    setGitHubEmail(localStorage.getItem('gitHubEmail'))
+  })
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginFormData),
+      });
+
+      if (response.ok) {
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginFormData({
+      ...loginFormData,
+      [name]: value,
+    });
+  };
+
   return (
-    <div className='signin'>
+    <div className="signin">
       <div className="form-container">
         <p className="title">Welcome back</p>
-        <form className="form" action='/signin' method='post'>
-          <input type="email" className="input" name='email' placeholder="Email" />
-          <input type="password" className="input" name='password' placeholder="Password" />
+        <form onSubmit={handleSubmit} className="form" action="/signin" method="post">
+          <input
+            type="email"
+            className="input"
+            name="email"
+            placeholder="Email"
+            value={loginFormData.email}
+            onChange={handleChange}
+            autoComplete="off"
+          />
+          <input
+            type="password"
+            className="input"
+            name="password"
+            placeholder="Password"
+            value={loginFormData.password}
+            onChange={handleChange}
+            autoComplete="off"
+          />
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
-          <button className="form-btn" type='submit'>Log in</button>
+          <button className="form-btn" type="submit">
+            Log in
+          </button>
         </form>
         <p className="sign-up-label">
-          Don't have an account? <Link to='/signup'><span className="sign-up-link">Sign up</span></Link>
+          Don't have an account?{" "}
+          <Link to="/signup">
+            <span className="sign-up-link">Sign up</span>
+          </Link>
         </p>
         <div className="buttons-container">
           <div className="apple-login-button">
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              className="apple-icon"
-              viewBox="0 0 1024 1024"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M747.4 535.7c-.4-68.2 30.5-119.6 92.9-157.5-34.9-50-87.7-77.5-157.3-82.8-65.9-5.2-138 38.4-164.4 38.4-27.9 0-91.7-36.6-141.9-36.6C273.1 298.8 163 379.8 163 544.6c0 48.7 8.9 99 26.7 150.8 23.8 68.2 109.6 235.3 199.1 232.6 46.8-1.1 79.9-33.2 140.8-33.2 59.1 0 89.7 33.2 141.9 33.2 90.3-1.3 167.9-153.2 190.5-221.6-121.1-57.1-114.6-167.2-114.6-170.7zm-105.1-305c50.7-60.2 46.1-115 44.6-134.7-44.8 2.6-96.6 30.5-126.1 64.8-32.5 36.8-51.6 82.3-47.5 133.6 48.4 3.7 92.6-21.2 129-63.7z" />
-            </svg>
-            <span>Log in with Apple</span>
+            <AiOutlineGithub size={24}/>
+            <span onClick={handleGithubSignIn}>Log in with Github</span>
           </div>
           <div className="google-login-button">
             <svg
@@ -66,7 +149,7 @@ const Signin = () => {
                 d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
               />
             </svg>
-            <span>Log in with Google</span>
+            <span onClick={handleGoogleSignIn}>Log in with Google</span>
           </div>
         </div>
       </div>
@@ -74,4 +157,4 @@ const Signin = () => {
   );
 };
 
-export default Signin
+export default Signin;
