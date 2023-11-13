@@ -65,8 +65,10 @@ app.post("/signin",async function (req,res) {
 
 //for authentication
 app.get("/api/todos", (req, res) => {
+  console.log(req.user); 
   res.json({
-    message: "hello Welcome"
+    message: "hello Welcome",
+    name:req.user.name
   });
 });
 

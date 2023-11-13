@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const [maxwell, setMaxwell] = useState(null)
+  const [name, setName]= useState('')
   const location = useLocation();
   const token = location?.state?.token;
   console.log("This is token -> " + token);
@@ -31,13 +32,14 @@ const Home = () => {
  
       console.log(res.data);
       setMaxwell(res.data.message); // Update state with response data
+      setName(res.data.name)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
 
 
-  return <div>{maxwell}
+  return <div>{maxwell} {name}
     <Navbar/>
   </div>;
 };
