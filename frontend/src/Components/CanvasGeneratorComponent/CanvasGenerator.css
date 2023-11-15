@@ -1,70 +1,47 @@
-.note {
-    position: relative;
-    width: 220px;
-    height: 100%;
+.canvas-create-button{
     display: flex;
-    flex-direction: column;
-    text-align: left;
-    gap: 10px;
-    justify-content: space-between;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    transition: all 0.5s;
-}
-
-.note:hover{
-    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-}
-
-.note h2 {
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: red;
+    border: 2px solid red;
+    border-radius: 20px;
     padding: 5px;
-    font-weight: 400;
-    font-size: 18px;
-    color: #000;
+    margin: 10px;
+    transition: all 0.3s;
 }
 
-.note-inner-text {
-    overflow-wrap: break-word;
+.canvas-create-button:hover{
+    background-color: antiquewhite;
+    transform: translateX(10px) translateY(5px);
 }
 
-.note p {
-    font-size: 14px;
-    padding: 5px;
-    color: #000;
-}
-
-.note-handle {
+.canvas-show-canvas{
     display: flex;
     flex-direction: row;
-    list-style: none;
-    gap: 34px;
-    font-size: 20px;
+    flex-wrap: wrap;
     justify-content: space-between;
+    margin: 10px;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
 }
 
-.note-tick {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    color: #000;
-    opacity: 0;
-    transition: all 0.3s ease-in-out;
+.canvas-initial-bg-txt {
+    color: #5f6368;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 400;
 }
 
-.note-handle li {
-    color: #000;
-    opacity: 0;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.note:hover .note-handle li,
-.note:hover .note-tick {
-    opacity: 1;
+.canvas-initial-bg {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 .add-note-bar-icons-color-chooser ul {
+    z-index: 2;
     display: flex;
     list-style: none;
     position: absolute;
@@ -170,8 +147,31 @@
     transition: all 0.3s;
 }
 
-.add-note-bar-icons-color-chooser-custom:hover {
+.add-canvas-bar-icons-color-chooser-custom:hover {
     /* border-color: #a142f4; */
     border-color: black;
     transform: scale(1.2);
+}
+
+.add-canvas-bar-icons ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 34px;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.add-canvas-bar-icons ul li {
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.add-canvas-bar-icons ul li:hover {
+    transform: scale(1.2);
+}
+
+.add-canvas-bar-icons ul:hover .add-canvas-bar-icons ul li {
+    opacity: 1;
 }

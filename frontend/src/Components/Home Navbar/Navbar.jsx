@@ -51,6 +51,11 @@ const Navbar = () => {
                 Notes
               </li>
             </Link>
+            <Link to='/canvas-generator'>
+              <li onClick={() => handleItemClick('canvas')} className={clicked === 'canvas' ? 'clicked' : ''}>
+                Canvas
+              </li>
+            </Link>
           </ul>
         </div>
       </div>

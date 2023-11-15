@@ -5,8 +5,14 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [clicked, setClicked] = useState('tasks');
 
+  const [isComponentVisible, setComponentVisibility] = useState(false);
+
+  const toggleComponentVisibility = () => {
+    setComponentVisibility((prev) => !prev);
+  };
+  const contextValue = {clicked, setClicked,isComponentVisible,toggleComponentVisibility};
   return (
-    <AppContext.Provider value={{ clicked, setClicked }}>
+    <AppContext.Provider value={contextValue}>
       {children}
     </AppContext.Provider>
   );
