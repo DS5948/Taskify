@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Task.css";
+import { useAppContext } from "../context";
 
 const Task = (props) => {
+  const {toggleAddToDoVisibility} = useAppContext();
   const [clicked, setClicked] = useState(false);
 
   const handleTickClick = async () => {
@@ -44,7 +46,7 @@ const Task = (props) => {
           </svg>
         </div>
       </div>
-      <div className="task-clickable-area">
+      <div onClick={toggleAddToDoVisibility} className="task-clickable-area">
         <div className="task-title">
         <p>{props.title}</p>
         </div>
