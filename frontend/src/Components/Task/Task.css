@@ -1,5 +1,4 @@
 .task {
-    height: 60px;
     width: 100%;
     margin-bottom: 2px;
     border-radius: 5px;
@@ -16,13 +15,16 @@
 .task .tick:hover svg{
     display: inline;
 }
-.task p{
+.task-title p{
     font-size: 16px;
     color: #34313A;
 }
+.task-notes p {
+    font-size: 14px;
+    color: #686274;
+}
 .task-tick {
     width: 40px;
-    height: 60px;
     background: #FFBE5D;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -53,6 +55,34 @@
     padding: 7px;
     overflow-wrap: break-word;
     overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.due-date-and-tags {
+    display: flex;
+    justify-content: space-between;
+}
+.due-date {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.due-date svg {
+    width: 14px;
+    height: 14px;
+    color: #686274;
+    fill: currentColor;
+}
+.due-date p {
+    color: #686274;
+    font-size: 12px;
+}
+.tags svg {
+    width: 14px;
+    height: 14px;
+    color: #686274;
+    fill: currentColor;
 }
 .grab {
     position: absolute;

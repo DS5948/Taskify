@@ -8,7 +8,7 @@ const TasksSearchBarDiv = () => {
     const [addTaskIsClicked, setAddTaskClicked] = useState(false);
     const [tagsClicked,setTagsClicked] = useState(false);
 
-    const { isComponentVisible,toggleComponentVisibility} = useAppContext();
+    const {toggleAddToDoVisibility,toggleAddDailyVisibility,toggleAddHabitVisibility} = useAppContext();
 
     const handleAddTaskClick = () => {
         setAddTaskClicked(!addTaskIsClicked);
@@ -79,18 +79,18 @@ const TasksSearchBarDiv = () => {
                 <span>Add Task</span>
                 <div className="add-task-list" style={{ display: addTaskIsClicked ? 'block' : 'none' }}>
                     <ul>
-                        <li>
+                        <li onClick={toggleAddHabitVisibility}>
                             <div className="add-task-li">
                             <svg className='add-task-btn-habit-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><path fill-rule="evenodd" d="M11 11H9v2H7v-2H5V9h2V7h2v2h2v2zm8 0h6V9h-6v2zm9 5c0 1.103-.897 2-2 2H16V2h10c1.103 0 2 .897 2 2v12zM4 18c-1.103 0-2-.897-2-2V4c0-1.103.897-2 2-2h10v16H4zM26 0H4a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h22a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4z"></path></svg>                                <span>Habit</span>
                             </div>
                         </li>
-                        <li>
+                        <li onClick={toggleAddDailyVisibility}>
                             <div className="add-task-li">
                                 <svg className='add-task-btn-daily-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 20"><path fillRule="evenodd" d="M13 16h2v-2h-2v2zm-4 0h2v-2H9v2zm-4 0h2v-2H5v2zm12-4h2v-2h-2v2zm-4 0h2v-2h-2v2zm-4 0h2v-2H9v2zm13-4H2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8zm2-2v10a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h1V0h2v2h10V0h2v2h1a4 4 0 0 1 4 4zM5 12h2v-2H5v2z"></path></svg>
                                 <span>Daily</span>
                             </div>
                         </li>
-                        <li onClick={toggleComponentVisibility}>
+                        <li onClick={toggleAddToDoVisibility}>
                             <div className="add-task-li">
                                 <svg className='add-task-btn-todo-icon' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fillRule="evenodd" d="M8.343 14.916c-.312 0-.61-.123-.831-.344l-3.831-3.831 1.662-1.662 2.934 2.934 5.938-6.929L16 6.613l-6.764 7.893a1.182 1.182 0 0 1-.848.409l-.045.001zM18 16c0 1.103-.897 2-2 2H4c-1.102 0-2-.897-2-2V4c0-1.103.898-2 2-2h12c1.103 0 2 .897 2 2v12zM16 0H4a4 4 0 0 0-4 4v12a4 4 0 0 0 4 4h12a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4z"></path></svg>
                                 <span>To Do</span>

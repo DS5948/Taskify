@@ -145,7 +145,7 @@ const Column = () => {
                               {...provided.dragHandleProps}
                             >
                               <Task
-                                text={task.title}
+                                title={task.title}
                                 taskId={task._id}
                                 status={clicked}
                                 updateTasks={fetchTasks}

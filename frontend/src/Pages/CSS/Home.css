@@ -6,7 +6,8 @@
     flex-wrap: wrap;
     padding: 20px;
 }
-.todo-edit-container {
+
+.todo-edit-container,.daily-edit-container,.habit-edit-container {
     position: fixed;
     top: 0;
     left: 0;

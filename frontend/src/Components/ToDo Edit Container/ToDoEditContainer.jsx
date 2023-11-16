@@ -3,14 +3,14 @@ import "./ToDoEditContainer.css";
 import { useAppContext } from '../context';
 
 const ToDoEditContainer = () => {
-  const {toggleComponentVisibility} = useAppContext();
+  const {isAddToDoVisible,toggleAddToDoVisibility} = useAppContext();
   return (
-    <div className="edit-container">
+    <div className="edit-container todo-editor">
       <div className="edit-container-top">
         <div className="edit-container-top-head">
           <h2>Create To Do</h2>
           <div className="cancel-create-btn">
-            <button onClick={toggleComponentVisibility} className="cancel-edit-btn">Cancel</button>
+            <button onClick={toggleAddToDoVisibility} className="cancel-edit-btn">Cancel</button>
             <button className="create-edit-btn">Create</button>
           </div>
         </div>
