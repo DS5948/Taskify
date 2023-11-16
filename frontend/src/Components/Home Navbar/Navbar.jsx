@@ -16,7 +16,7 @@ const Navbar = () => {
   };
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch("http://localhost:8000/logout", {
         method: "GET",
         credentials: "include",
       });
@@ -49,6 +49,11 @@ const Navbar = () => {
             <Link to='/notes'>
               <li onClick={() => handleItemClick('notes')} className={clicked === 'notes' ? 'clicked' : ''}>
                 Notes
+              </li>
+            </Link>
+            <Link to='/canvas-generator'>
+              <li onClick={() => handleItemClick('canvas')} className={clicked === 'canvas' ? 'clicked' : ''}>
+                Canvas
               </li>
             </Link>
           </ul>

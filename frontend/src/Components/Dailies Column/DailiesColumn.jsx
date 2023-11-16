@@ -17,7 +17,7 @@ const DailiesColumn = () => {
   };
   const fetchDailies = async () => {
     try {
-      const response = await fetch("http://localhost:5000/get-dailies", {
+      const response = await fetch("http://localhost:8000/get-dailies", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -51,7 +51,7 @@ const DailiesColumn = () => {
 
     try {
       setDailiesAdded(true);
-      const response = await fetch("http://localhost:5000/dailies", {
+      const response = await fetch("http://localhost:8000/dailies", {
         method: "POST",
         credentials: "include",
         headers: {

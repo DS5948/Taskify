@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [clicked, setClicked] = useState('tasks');
+  
 
   return (
     <AppContext.Provider value={{ clicked, setClicked }}>

@@ -7,13 +7,14 @@ import { MdDelete } from "react-icons/md";
 import { IoMdDoneAll } from "react-icons/io";
 import {AiOutlineClose} from "react-icons/ai"
 import Card from '../Note/Note';
+import Reminder from '../ReminderFn/Reminder';
 import { CgNotes } from 'react-icons/cg';
 
 function AddNoteBar(props)
 {
   const fetchNotes = async () => {
       try {
-          const response = await fetch("http://localhost:5000/get-notes", {
+          const response = await fetch("http://localhost:8000/get-notes", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -61,7 +62,7 @@ function AddNoteBar(props)
     }
     else
     {try {
-      const response = await fetch("http://localhost:5000/note", {
+      const response = await fetch("http://localhost:8000/note", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -193,6 +194,10 @@ function AddNoteBar(props)
           Notes you add appear here
         </div>
       </div>
+
+    </div>
+    <div>
+   
     </div>
     </div>
     

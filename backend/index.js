@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const User = require('./Model/UserSchema.js');
 const Task = require('./Model/TaskSchema.js');
 const Daily = require('./Model/DailySchema.js');
+const Note = require('./Model/NoteSchema.js')
 const schedule = require('node-schedule');
 const connectDb = require('./config/db.js');
 const app = express();
@@ -109,6 +110,7 @@ app.post('/task', async function (req, res) {
 });
 app.post('/dailies', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
+  console.log(currentUserId);
   try {
     const { title } = req.body;
     const newDaily = new Daily({
@@ -214,6 +216,7 @@ app.delete("/delete-daily-task", async (req, res) => {
 // api code to save notes to the database
 app.post('/note',async function(req,res){
   const currentUserId = req.session.userId;
+  console.log(currentUserId);
   try{
     const {note,title,color,reminder} = req.body;
     const newNote = new Note({
@@ -329,7 +332,7 @@ app.get('/get-canvases', async function (req, res) {
 });
 
 // Start the server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

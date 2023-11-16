@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../Components/Home Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
-import CanvasGeneratorComponent from '../Components/CanvasGeneratorComponent/CanvasGenerator';
+import CanvasGeneratorComponent from '../Components/CanvasGenerator/CanvasGenerator';
 
 function CanvasGenerator(props){
     return(

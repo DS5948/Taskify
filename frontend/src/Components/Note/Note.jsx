@@ -1,26 +1,48 @@
-import React ,{useState } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import { BiBellPlus } from "react-icons/bi";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDelete, MdTaskAlt } from "react-icons/md";
-import {FaDropletSlash} from 'react-icons/fa6';
+import { FaDropletSlash } from "react-icons/fa6";
 import { IoMdDoneAll } from "react-icons/io";
 import "./Note.css";
-
+import ReminderPage from "../../Pages/ReminderPage";
 function Card(props) {
-
+  const divEl = useRef(); //for reminder
   const [isColorClicked, setColorClicked] = useState(false);
-  const [color,setColor] = useState(props.color);
+  const [color, setColor] = useState(props.color);
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    const handler = (event) => {
+      if (!divEl.current) {
+        return;
+      }
+
+      if (!divEl.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handler, true);
+
+    return () => {
+      document.removeEventListener('click', handler);
+    };
+  }, []);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleDeleteClick = async () => {
     try {
-      const response = await fetch("http://localhost:5000/delete-note", {
+      const response = await fetch("http://localhost:8000/delete-note", {
         method: "DELETE",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id: props.id
+          id: props.id,
         }),
       });
 
@@ -32,25 +54,22 @@ function Card(props) {
     } catch (error) {
       console.error("Error", error);
     }
-  }
+  };
 
   const handleColorClicked = () => {
-    if(isColorClicked)
-    {
+    if (isColorClicked) {
       setColorClicked(false);
-    }
-    else
-    {
+    } else {
       setColorClicked(true);
     }
-  }
+  };
 
   const handleColorChoosed = async (e) => {
     const style = window.getComputedStyle(e.target);
     const backgroundColor = style.backgroundColor;
     setColor(backgroundColor);
     try {
-      const response = await fetch("http://localhost:5000/update-note-color", {
+      const response = await fetch("http://localhost:8000/update-note-color", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -58,7 +77,7 @@ function Card(props) {
         },
         body: JSON.stringify({
           color: backgroundColor,
-          id: props.id
+          id: props.id,
         }),
       });
 
@@ -70,67 +89,80 @@ function Card(props) {
     } catch (error) {
       console.error("Error", error);
     }
-  }
+  };
 
   return (
-    <div className="note" style={{backgroundColor:color}}>
-      <span className="note-tick">
-        <MdTaskAlt size={26} />
-      </span>
-      <div className="note-text">
-        <h2>{props.title}</h2>
-        <div className="note-inner-text">
-          <p>{props.note}</p>
+    
+      <div className="note" style={{ backgroundColor: color }}>
+        <span className="note-tick">
+          <MdTaskAlt size={26} />
+        </span>
+        <div className="note-text">
+          <h2>{props.title}</h2>
+          <div className="note-inner-text">
+            <p>{props.note}</p>
+          </div>
         </div>
-      </div>
-      <div className="note-handle">
-        <li>
-          <BiBellPlus />
-        </li>
-        <li 
-        className="add-note-bar-icons-color"
-        onClick={handleColorClicked}
-        >
-          <IoColorPaletteOutline />
-          <div 
-          className='add-note-bar-icons-color-chooser'
-          style={{display:isColorClicked? 'flex':'none'}}>
+        <div className="note-handle">
+          <li>
+            <div className="reminder__op">
+              <BiBellPlus onClick={() => setIsOpen(true)} />
+            </div>
+          </li>
+
+          <li className="add-note-bar-icons-color" onClick={handleColorClicked}>
+            <IoColorPaletteOutline />
+            <div
+              className="add-note-bar-icons-color-chooser"
+              style={{ display: isColorClicked ? "flex" : "none" }}
+            >
               <ul>
-                <li 
-                className='add-note-bar-icons-color-chooser-white'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-white"
+                  onClick={handleColorChoosed}
                 >
-                <FaDropletSlash />
+                  <FaDropletSlash />
                 </li>
-                <li 
-                className='add-note-bar-icons-color-chooser-red'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-red"
+                  onClick={handleColorChoosed}
                 ></li>
-                <li className='add-note-bar-icons-color-chooser-blue'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-blue"
+                  onClick={handleColorChoosed}
                 ></li>
-                <li className='add-note-bar-icons-color-chooser-cyan'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-cyan"
+                  onClick={handleColorChoosed}
                 ></li>
-                <li className='add-note-bar-icons-color-chooser-yellow'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-yellow"
+                  onClick={handleColorChoosed}
                 ></li>
-                <li className='add-note-bar-icons-color-chooser-custom'
-                onClick={handleColorChoosed}
+                <li
+                  className="add-note-bar-icons-color-chooser-custom"
+                  onClick={handleColorChoosed}
                 ></li>
               </ul>
-          </div>
-        </li>
-        <li
-          onClick={handleDeleteClick}
-        >
-          <MdDelete />
-        </li>
-        <li>
-          <IoMdDoneAll />
-        </li>
+            </div>
+          </li>
+          <li onClick={handleDeleteClick}>
+            <MdDelete />
+          </li>
+          <li>
+            <IoMdDoneAll />
+          </li>
+        </div>
+        
+      <div ref={divEl} >
+      {isOpen && <ReminderPage/>}
       </div>
-    </div>
+        
+      </div>
+    
+   
+     
+  
   );
 }
 
