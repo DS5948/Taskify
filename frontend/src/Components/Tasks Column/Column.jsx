@@ -157,7 +157,7 @@ const Column = () => {
                     : completedTasks.map((task, index) => (
                             <div>
                               <Task
-                                text={task.title}
+                                title={task.title}
                                 taskId={task._id}
                                 status={clicked}
                                 updateTasks={fetchTasks}
